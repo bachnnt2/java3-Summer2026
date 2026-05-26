@@ -30,12 +30,17 @@ public class HelloWorld extends HttpServlet {
         ArrayList<BeerOrder> lstBeerOrder = new ArrayList<BeerOrder>();
         lstBeerOrder = dao.getAll();
         // set cái list trên vào 1 attribute trong request
+        // ở bên jsp, thì cái tên ở trong ngoặc "" ở dòng dưới,
+        // được dùng trong thuộc tính items của forEach
         req.setAttribute("lstBeerOrder", lstBeerOrder);
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Đã vào đến dopost");
+        String ten = request.getParameter("ten");
+        System.out.println("tên của thằng đăng ký là " + ten);
+
     }
 }

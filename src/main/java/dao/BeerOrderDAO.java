@@ -7,4 +7,6 @@ import java.util.ArrayList;
 public interface BeerOrderDAO {
     // hàm để query tất cả dữ liệu
     ArrayList<BeerOrder> getAll();
+
+    // các hàm khác viết ở đây
 }

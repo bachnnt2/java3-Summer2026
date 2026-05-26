@@ -18,6 +18,13 @@ em tự định nghĩa--%>
 <body>
 <p>Xin chào đồng chí ${bien1} có số tuổi là ${age} ✈✈✈✈✈</p>
 <p>${ketnoi}</p>
+<div>
+    <form method="post" action="/view">
+        <label>Tên</label>
+        <input type="text" name="ten"/>
+        <button type="submit">Đăng ký</button>
+    </form>
+</div>
 <%--forEach là 1 vòng lặp, trong môn này dùng để duyêt qua mảng (Array)--%>
 <table>
     <thead>
