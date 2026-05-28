@@ -9,4 +9,6 @@ public interface BeerOrderDAO {
     ArrayList<BeerOrder> getAll();
 
     // các hàm khác viết ở đây
+    // hàm thêm mới
+    void createBeerOrder(BeerOrder beerOrder);
 }

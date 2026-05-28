@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class BeerOrderImpl implements BeerOrderDAO {
     private static final String GET_ALL_QUERY = "SELECT * FROM BeerOrder";
+    private static final String INSERT_BEER_ORDER_QUERY =
+            "INSERT INTO BeerOrder(customerName, beerName, quantity) VALUES (?,?,?)";
 
     @Override
     public ArrayList<BeerOrder> getAll() {
@@ -40,5 +42,23 @@ public class BeerOrderImpl implements BeerOrderDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void createBeerOrder(BeerOrder beerOrder) {
+        try {
+            Connection ketnoi = JDBC.getConnection();
+            PreparedStatement ps = ketnoi.prepareStatement(INSERT_BEER_ORDER_QUERY);
+            // nôm na là cái hàm này, nhận beerOrder từ JSP, sau đó insert vào database
+            // chú ý thứ tự tên các biến ở câu query, ví dụ ở đây thầy đang để thứ tự là
+            // BeerOrder(customerName, beerName, quantity) tức là customerName là số 1,
+            // beerName là số 2, quantity là cuối cùng, số 3
+            ps.setString(1, beerOrder.getCustomerName());
+            ps.setString(2, beerOrder.getBeerName());
+            ps.setInt(3, beerOrder.getQuantity());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

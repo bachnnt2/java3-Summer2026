@@ -20,8 +20,15 @@ em tự định nghĩa--%>
 <p>${ketnoi}</p>
 <div>
     <form method="post" action="/view">
-        <label>Tên</label>
-        <input type="text" name="ten"/>
+        <label>Tên khách hàng 🐕🐕🐕🐕</label>
+        <input type="text" name="customerName"/>
+        <br/>
+        <label>Tên beer đặt 🍺🍺🍺🍺</label>
+        <input type="text" name="beerName"/>
+        <br/>
+        <label>Số lượng cốc</label>
+        <input type="number" name="quantity"/>
+        <br/>
         <button type="submit">Đăng ký</button>
     </form>
 </div>

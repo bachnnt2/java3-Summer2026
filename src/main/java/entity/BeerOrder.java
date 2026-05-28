@@ -16,6 +16,12 @@ public class BeerOrder {
         this.orderId = orderId;
     }
 
+    public BeerOrder(String customerName, String beerName, int quantity) {
+        this.customerName = customerName;
+        this.beerName = beerName;
+        this.quantity = quantity;
+    }
+
     public BeerOrder() {
     }
 

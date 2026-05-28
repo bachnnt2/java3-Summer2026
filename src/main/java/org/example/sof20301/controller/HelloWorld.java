@@ -39,8 +39,20 @@ public class HelloWorld extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Đã vào đến dopost");
-        String ten = request.getParameter("ten");
-        System.out.println("tên của thằng đăng ký là " + ten);
+        // lấy dữ liệu từ form bên jsp thông qua request
+        String customerName = request.getParameter("customerName");
+        String beerName = request.getParameter("beerName");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
 
+        // tạo đối tượng beerOrder
+        BeerOrder beerOrder = new BeerOrder(customerName, beerName, quantity);
+
+        // dùng đối tượng ở trên, nhét vào trong db
+        dao.createBeerOrder(beerOrder);
+
+        // sau khi thêm xong, sử dụng redirect để quay lại form view
+        // redirect khác cái dispatcher ở doget, đó là reset lại URL, và tránh lỗi
+        // submit 2 lần hoặc nhiều lần
+        response.sendRedirect("/view");
     }
 }
