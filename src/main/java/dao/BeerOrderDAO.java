@@ -11,4 +11,10 @@ public interface BeerOrderDAO {
     // các hàm khác viết ở đây
     // hàm thêm mới
     void createBeerOrder(BeerOrder beerOrder);
+
+    // hàm xem chi tiết theo orderId
+    BeerOrder selectByOrderId(int orderId);
+
+    // hàm xoá
+    // hàm sửa
 }

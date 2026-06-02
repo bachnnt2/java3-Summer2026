@@ -7,12 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class BeerOrderImpl implements BeerOrderDAO {
     private static final String GET_ALL_QUERY = "SELECT * FROM BeerOrder";
-    private static final String INSERT_BEER_ORDER_QUERY =
-            "INSERT INTO BeerOrder(customerName, beerName, quantity) VALUES (?,?,?)";
-
+    private static final String INSERT_BEER_ORDER_QUERY = "INSERT INTO BeerOrder(customerName, beerName, quantity) VALUES (?,?,?)";
+    private static final String SELECT_BY_ID_QUERY = "SELECT * FROM BeerOrder WHERE orderId = ?";
     @Override
     public ArrayList<BeerOrder> getAll() {
         try {
@@ -33,8 +33,7 @@ public class BeerOrderImpl implements BeerOrderDAO {
                 int quantity = ketqua.getInt("quantity"); //quantity INT
                 // tạo mới đối tượng BeerOrder
                 // Mẹo: copy trong ngoặc của Constructor từ bên entity sang cho đỡ nhầm thứ tự
-                BeerOrder doituong =
-                        new BeerOrder(quantity, beerName, customerName, customerId, orderId);
+                BeerOrder doituong = new BeerOrder(quantity, beerName, customerName, customerId, orderId);
                 lstBeerOrder.add(doituong);
             }
             return lstBeerOrder;
@@ -60,5 +59,28 @@ public class BeerOrderImpl implements BeerOrderDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public BeerOrder selectByOrderId(int orderId) {
+        try {
+            Connection ketnoi = JDBC.getConnection();
+            PreparedStatement ps = ketnoi.prepareStatement(SELECT_BY_ID_QUERY);
+            ResultSet ketqua = ps.executeQuery();
+            if (ketqua.next()) {
+                int orderIdResult = ketqua.getInt("orderId"); //orderId INT IDENTITY(1,1) PRIMARY KEY,
+                int customerId = ketqua.getInt("customerId"); //customerId INT,
+                String customerName = ketqua.getString("customerName"); //customerName NVARCHAR (100),
+                String beerName = ketqua.getString("beerName"); //beerName NVARCHAR(100),
+                int quantity = ketqua.getInt("quantity"); //quantity INT
+                // tạo mới đối tượng BeerOrder
+                // Mẹo: copy trong ngoặc của Constructor từ bên entity sang cho đỡ nhầm thứ tự
+                BeerOrder beerOrder = new BeerOrder(quantity, beerName, customerName, customerId, orderIdResult);
+                return beerOrder;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

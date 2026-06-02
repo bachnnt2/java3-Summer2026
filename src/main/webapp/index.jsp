@@ -19,7 +19,7 @@ em tự định nghĩa--%>
 <p>Xin chào đồng chí ${bien1} có số tuổi là ${age} ✈✈✈✈✈</p>
 <p>${ketnoi}</p>
 <div>
-    <form method="post" action="/view">
+    <form method="post" action="/create">
         <label>Tên khách hàng 🐕🐕🐕🐕</label>
         <input type="text" name="customerName"/>
         <br/>
