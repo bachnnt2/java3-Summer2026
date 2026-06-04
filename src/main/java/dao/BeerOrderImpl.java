@@ -7,12 +7,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class BeerOrderImpl implements BeerOrderDAO {
     private static final String GET_ALL_QUERY = "SELECT * FROM BeerOrder";
-    private static final String INSERT_BEER_ORDER_QUERY = "INSERT INTO BeerOrder(customerName, beerName, quantity) VALUES (?,?,?)";
+    private static final String INSERT_BEER_ORDER_QUERY = "INSERT INTO BeerOrder(customerName, beerName, quantity) " +
+            "VALUES (?,?,?)";
     private static final String SELECT_BY_ID_QUERY = "SELECT * FROM BeerOrder WHERE orderId = ?";
+    private static final String DELETE_BY_ID_QUERY = "DELETE BeerOrder WHERE orderId = ?";
+    private static final String UPDATE_BY_ID_QUERY = "UPDATE BeerOrder SET customerName = ?, beerName = ?, quantity = ? " +
+            "WHERE orderId = ?";
+
     @Override
     public ArrayList<BeerOrder> getAll() {
         try {
@@ -82,5 +86,32 @@ public class BeerOrderImpl implements BeerOrderDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void delebeById(int orderId) {
+        try {
+            Connection ketnoi = JDBC.getConnection();
+            PreparedStatement ps = ketnoi.prepareStatement(DELETE_BY_ID_QUERY);
+            ps.setInt(1, orderId);
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateById(int orderId, BeerOrder beerOrderUpdate) {
+        try {
+            Connection ketnoi = JDBC.getConnection();
+            PreparedStatement ps = ketnoi.prepareStatement(UPDATE_BY_ID_QUERY);
+            ps.setString(1, beerOrderUpdate.getCustomerName());
+            ps.setString(2, beerOrderUpdate.getBeerName());
+            ps.setInt(3, beerOrderUpdate.getQuantity());
+            ps.setInt(4, orderId);
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

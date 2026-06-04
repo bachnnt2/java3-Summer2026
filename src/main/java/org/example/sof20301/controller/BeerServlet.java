@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jdbc.JDBC;
+import service.BeerOrderService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +18,8 @@ import java.util.ArrayList;
 // bắt mọi đường dẫn có /view, sau này khi đi thi, đề bài sẽ yêu cầu anh em
 // bắt thêm các đường dẫn như là /delete, /update,.. thì anh em viết thêm vào đây
 public class BeerServlet extends HttpServlet {
-    private BeerOrderDAO dao = new BeerOrderImpl();
+
+    private BeerOrderService beerOrderService = new BeerOrderService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,7 +50,7 @@ public class BeerServlet extends HttpServlet {
             BeerOrder beerOrder = new BeerOrder(customerName, beerName, quantity);
 
             // dùng đối tượng ở trên, nhét vào trong db
-            dao.createBeerOrder(beerOrder);
+            beerOrderService.createBeerOrder(beerOrder);
 
             // sau khi thêm xong, sử dụng redirect để quay lại form view
             // redirect khác cái dispatcher ở doget, đó là reset lại URL, và tránh lỗi
@@ -65,11 +67,10 @@ public class BeerServlet extends HttpServlet {
     // viết vào 1 hàm để tăng tính tái sử dụng
     public void init(HttpServletRequest request) {
         // Từ sau dòng này, kết nối thử đến DB và xuất dữ liệu về index.jsp
-        ArrayList<BeerOrder> lstBeerOrder = new ArrayList<BeerOrder>();
-        lstBeerOrder = dao.getAll();
         // set cái list trên vào 1 attribute trong request
         // ở bên jsp, thì cái tên ở trong ngoặc "" ở dòng dưới,
         // được dùng trong thuộc tính items của forEach
+        ArrayList<BeerOrder> lstBeerOrder = beerOrderService.getAll();
         request.setAttribute("lstBeerOrder", lstBeerOrder);
     }
 }

@@ -16,5 +16,8 @@ public interface BeerOrderDAO {
     BeerOrder selectByOrderId(int orderId);
 
     // hàm xoá
+    void delebeById(int orderId);
+
     // hàm sửa
+    void updateById(int orderId, BeerOrder beerOrderUpdate);
 }
