@@ -18,4 +18,9 @@ public class BeerOrderService {
     public void createBeerOrder(BeerOrder beerOrder) {
         dao.createBeerOrder(beerOrder);
     }
+
+    public void deleteBeerOrder(String idXoa) {
+        int orderIdXoa = Integer.parseInt(idXoa); // ép kiếu về kiểu int
+        dao.delebeById(orderIdXoa);
+    }
 }

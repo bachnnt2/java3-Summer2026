@@ -40,6 +40,7 @@ em tự định nghĩa--%>
         <th>Tên khách hàng</th>
         <th>Tên bia gọi</th>
         <th>Số lượng</th>
+        <th>Hành động</th>
     </tr>
     </thead>
     <tbody>
@@ -49,6 +50,13 @@ em tự định nghĩa--%>
             <td>${bien.customerName}</td>
             <td>${bien.beerName}</td>
             <td>${bien.quantity}</td>
+            <td>
+                <form action="/delete" method="post" onsubmit="return confirm('Mày có chắc chắn muốn xoá không ?')">
+                        <%--Cái dòng ở dưới, tức là mỗi khi click nút xoá -> sẽ gửi kèm id cần xoá--%>
+                    <input type="hidden" value="${bien.orderId}" name="idXoa"/>
+                    <button type="submit">Xoá</button>
+                </form>
+            </td>
         </tr>
     </bach:forEach>
     </tbody>

@@ -58,6 +58,9 @@ public class BeerServlet extends HttpServlet {
             response.sendRedirect("/view");
         } else if (URIPost.contains("/delete")) {
             // gọi chức năng xoá
+            String idXoa = request.getParameter("idXoa");
+            beerOrderService.deleteBeerOrder(idXoa);
+            response.sendRedirect("/view");
         } else if (URIPost.contains("/update")) {
             // gọi chức năng sửa
         }
