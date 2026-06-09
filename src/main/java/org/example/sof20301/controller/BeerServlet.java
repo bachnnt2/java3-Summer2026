@@ -32,7 +32,17 @@ public class BeerServlet extends HttpServlet {
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
 
         } else if (URI.contains("/detail")) {
-            // gọi chức năng xem chi tiết
+            // gọi chức năng xem chi tiết thông qua service và id lấy được từ bên jsp
+            int orderId = Integer.parseInt(req.getParameter("idXem"));
+            BeerOrder beerOrder = beerOrderService.viewDetail(orderId);
+            // cái dòng debug ở dưới, để chạy được thì bên Entity anh em nhớ thêm toString()
+            System.out.println("Lấy được thằng cần tìm là " + beerOrder);
+            // sau khi lấy được rồi, ta set ngược lại về form ở jsp là xong việc detail
+            req.setAttribute("beerOrder", beerOrder);
+            // gọi hàm hiển thị
+            init(req);
+            // trả về trang index.jsp
+            req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
     }
 

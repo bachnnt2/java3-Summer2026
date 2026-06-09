@@ -70,6 +70,7 @@ public class BeerOrderImpl implements BeerOrderDAO {
         try {
             Connection ketnoi = JDBC.getConnection();
             PreparedStatement ps = ketnoi.prepareStatement(SELECT_BY_ID_QUERY);
+            ps.setInt(1, orderId);
             ResultSet ketqua = ps.executeQuery();
             if (ketqua.next()) {
                 int orderIdResult = ketqua.getInt("orderId"); //orderId INT IDENTITY(1,1) PRIMARY KEY,
@@ -80,6 +81,7 @@ public class BeerOrderImpl implements BeerOrderDAO {
                 // tạo mới đối tượng BeerOrder
                 // Mẹo: copy trong ngoặc của Constructor từ bên entity sang cho đỡ nhầm thứ tự
                 BeerOrder beerOrder = new BeerOrder(quantity, beerName, customerName, customerId, orderIdResult);
+                System.out.println("beerOrder lấy được ở dao là " + beerOrder);
                 return beerOrder;
             }
         } catch (Exception e) {

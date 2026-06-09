@@ -23,4 +23,8 @@ public class BeerOrderService {
         int orderIdXoa = Integer.parseInt(idXoa); // ép kiếu về kiểu int
         dao.delebeById(orderIdXoa);
     }
+
+    public BeerOrder viewDetail(int orderId) {
+        return dao.selectByOrderId(orderId);
+    }
 }

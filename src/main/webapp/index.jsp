@@ -21,13 +21,13 @@ em tự định nghĩa--%>
 <div>
     <form method="post" action="/create">
         <label>Tên khách hàng 🐕🐕🐕🐕</label>
-        <input type="text" name="customerName"/>
+        <input type="text" name="customerName" value="${beerOrder.customerName}"/>
         <br/>
         <label>Tên beer đặt 🍺🍺🍺🍺</label>
-        <input type="text" name="beerName"/>
+        <input type="text" name="beerName" value="${beerOrder.beerName}"/>
         <br/>
         <label>Số lượng cốc</label>
-        <input type="number" name="quantity"/>
+        <input type="number" name="quantity" value="${beerOrder.quantity}"/>
         <br/>
         <button type="submit">Đăng ký</button>
     </form>
@@ -55,6 +55,11 @@ em tự định nghĩa--%>
                         <%--Cái dòng ở dưới, tức là mỗi khi click nút xoá -> sẽ gửi kèm id cần xoá--%>
                     <input type="hidden" value="${bien.orderId}" name="idXoa"/>
                     <button type="submit">Xoá</button>
+                </form>
+                <form action="/detail" method="get">
+                        <%--Cái dòng ở dưới, tức là mỗi khi click nút xem -> sẽ gửi kèm id cần xem--%>
+                    <input type="hidden" value="${bien.orderId}" name="idXem"/>
+                    <button type="submit">Xem</button>
                 </form>
             </td>
         </tr>
