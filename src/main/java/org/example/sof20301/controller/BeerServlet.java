@@ -39,6 +39,8 @@ public class BeerServlet extends HttpServlet {
             System.out.println("Lấy được thằng cần tìm là " + beerOrder);
             // sau khi lấy được rồi, ta set ngược lại về form ở jsp là xong việc detail
             req.setAttribute("beerOrder", beerOrder);
+            // tạo 1 biến cờ (flag) để bên jsp biết khi nào cần update
+            req.setAttribute("isUpdate", true);
             // gọi hàm hiển thị
             init(req);
             // trả về trang index.jsp
@@ -73,6 +75,16 @@ public class BeerServlet extends HttpServlet {
             response.sendRedirect("/view");
         } else if (URIPost.contains("/update")) {
             // gọi chức năng sửa
+            int idUpdate = Integer.parseInt(request.getParameter("idUpdate"));
+            // Lấy đối tượng để update vào database
+            String customerNameUpdate = request.getParameter("customerNameUpdate");
+            String beerNameUpdate = request.getParameter("beerNameUpdate");
+            int quantityUpdate = Integer.parseInt(request.getParameter("quantityUpdate"));
+            // tạo đối tượng beerOrder
+            BeerOrder beerOrder = new BeerOrder(customerNameUpdate, beerNameUpdate, quantityUpdate);
+            beerOrderService.updateBeerOrder(idUpdate, beerOrder);
+            // update xong, về lại đường dẫn /view. CHú ý là với method post, dùng sendRedirect để không bị update nhiều hơn 1 lần, vì url sẽ được reset
+            response.sendRedirect("/view");
         }
     }
 

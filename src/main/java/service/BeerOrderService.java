@@ -27,4 +27,8 @@ public class BeerOrderService {
     public BeerOrder viewDetail(int orderId) {
         return dao.selectByOrderId(orderId);
     }
+
+    public void updateBeerOrder(int orderId, BeerOrder beerOrderUpdate) {
+        dao.updateById(orderId, beerOrderUpdate);
+    }
 }

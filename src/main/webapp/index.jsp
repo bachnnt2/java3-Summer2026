@@ -19,18 +19,40 @@ em tự định nghĩa--%>
 <p>Xin chào đồng chí ${bien1} có số tuổi là ${age} ✈✈✈✈✈</p>
 <p>${ketnoi}</p>
 <div>
-    <form method="post" action="/create">
-        <label>Tên khách hàng 🐕🐕🐕🐕</label>
-        <input type="text" name="customerName" value="${beerOrder.customerName}"/>
-        <br/>
-        <label>Tên beer đặt 🍺🍺🍺🍺</label>
-        <input type="text" name="beerName" value="${beerOrder.beerName}"/>
-        <br/>
-        <label>Số lượng cốc</label>
-        <input type="number" name="quantity" value="${beerOrder.quantity}"/>
-        <br/>
-        <button type="submit">Đăng ký</button>
-    </form>
+    <%--    ở dưới là logic giống if else hoặc switch-case, when tượng trưng cho điều kiện chính, otherwise
+     có nghĩa là "nếu không thì"--%>
+    <%--    Ở dưới có nghĩa là nếu isUpdate là true -> hiển thị form update, nếu không thì hiển thị form thêm mới--%>
+    <bach:choose>
+        <bach:when test="${isUpdate}">
+            <form method="post" action="/update">
+                <label>Tên khách hàng 🐕🐕🐕🐕</label>
+                <input type="text" name="customerNameUpdate" value="${beerOrder.customerName}"/>
+                <br/>
+                <label>Tên beer đặt 🍺🍺🍺🍺</label>
+                <input type="text" name="beerNameUpdate" value="${beerOrder.beerName}"/>
+                <br/>
+                <label>Số lượng cốc</label>
+                <input type="number" name="quantityUpdate" value="${beerOrder.quantity}"/>
+                <br/>
+                <input type="hidden" value="${beerOrder.orderId}" name="idUpdate"/>
+                <button type="submit">Sửa</button>
+            </form>
+        </bach:when>
+        <bach:otherwise>
+            <form method="post" action="/create">
+                <label>Tên khách hàng 🐕🐕🐕🐕</label>
+                <input type="text" name="customerName"/>
+                <br/>
+                <label>Tên beer đặt 🍺🍺🍺🍺</label>
+                <input type="text" name="beerName"/>
+                <br/>
+                <label>Số lượng cốc</label>
+                <input type="number" name="quantity"/>
+                <br/>
+                <button type="submit">Đăng ký</button>
+            </form>
+        </bach:otherwise>
+    </bach:choose>
 </div>
 <%--forEach là 1 vòng lặp, trong môn này dùng để duyêt qua mảng (Array)--%>
 <table>
